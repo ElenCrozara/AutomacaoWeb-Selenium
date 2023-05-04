@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 public class TesteWeb {
     WebDriver driver;
     Driver driverWeb;
+
     @Before
     public void inicializaTeste() {
         driverWeb = new Driver("chrome");
