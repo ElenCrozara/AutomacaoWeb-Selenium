@@ -1,24 +1,26 @@
 package automacaoWeb;
 
+import automacaoWeb.core.Driver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.Assert.*;
 
 public class TesteWeb {
-    ChromeDriver driver;
+    WebDriver driver;
+    Driver driverWeb;
     @Before
     public void inicializaTeste() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        driverWeb = new Driver("chrome");
+        driver = driverWeb.getDriver();
         driver.get("https://www.chronosacademy.com.br");
     }
     @Test
-    public void acessaSite()  {
-        String xpathTitulo = "/html/body/div/div/div/div/div/section[2]/div[3]/div/div/div/div/div[1]/div/h4";
+    public void acessaSite() {
+        String xpathTitulo = "//section[2]//h4"; // foi inserido uma barra no inicio e final e deletado vários elementos até chegar nessa composição
         WebElement txtTitulo = driver.findElement(By.xpath(xpathTitulo));
         String titulo = txtTitulo.getText();
         assertEquals("Porque Tempo É Conhecimento.", titulo);
@@ -34,10 +36,9 @@ public class TesteWeb {
         String src = "https://img.imageboss.me/orbitpages/height/100/withoutEnlargement:true/sites/102987/2022/01/layout_whatsapp.png";
 //        WebElement imgLogo = driver.findElement(By.linkText(src));
 //        assertEquals();
-
     }
     @After
     public void finalizaTeste() {
         driver.quit();
-        }
+    }
 }
