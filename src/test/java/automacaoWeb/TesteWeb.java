@@ -23,20 +23,24 @@ public class TesteWeb {
     public void acessaSite() {
         String xpathTitulo = "//section[2]//h4"; // foi inserido uma barra no inicio e final e deletado vários elementos até chegar nessa composição
         WebElement txtTitulo = driver.findElement(By.xpath(xpathTitulo));
-        String titulo = txtTitulo.getText();
-        assertEquals("Porque Tempo É Conhecimento.", titulo);
+        assertEquals("Porque Tempo É Conhecimento.", txtTitulo.getText());
     }
     @Test
     public void validaPaginaDeCursos() {
-        String buttonCursos = "body > div > div > div > div > div > section.elementor-element.elementor-element-72fe67f.elementor-section-height-min-height.elementor-section-boxed.elementor-section-height-default.elementor-section-items-middle.elementor-section.elementor-top-section.elementor-motion-effects-element.elementor-motion-effects-element-type-background > div.elementor-container.elementor-column-gap-default > div > div > div > div > div.elementor-element.elementor-element-8e9235e.elementor-tablet-align-center.elementor-align-center.elementor-widget.elementor-widget-button > div > div > a > span > span.elementor-button-text";
-        WebElement btoPage = driver.findElement(By.cssSelector(buttonCursos));
-        String texto = btoPage.getText();
-        assertEquals("Conheça Nossos Cursos", texto);
-        String bto;
-        btoPage.click();
-        String src = "https://img.imageboss.me/orbitpages/height/100/withoutEnlargement:true/sites/102987/2022/01/layout_whatsapp.png";
-//        WebElement imgLogo = driver.findElement(By.linkText(src));
-//        assertEquals();
+        String buttonCursos = "//body/div/div/div/div/div/section[2]//a";
+        WebElement btnPage = driver.findElement(By.xpath(buttonCursos));
+        btnPage.click();
+
+
+        String cssTitulo = "div.text-center > div.large-h1"; // foi montado o caminho do css com 2 divs e 2 classes
+        WebElement txtTitulo = driver.findElement(By.cssSelector(cssTitulo));
+        assertEquals("Conheça todos os nossos cursos.", txtTitulo.getText());
+
+
+        String src = "//section[1]//img"; // nunca pegar caminhos de elementos que contenham números porque eles sempre mudam
+        WebElement imgLogo = driver.findElement(By.xpath(src));
+        imgLogo.isDisplayed();
+
     }
     @After
     public void finalizaTeste() {
