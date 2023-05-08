@@ -1,4 +1,4 @@
-package automacaoWeb;
+package automacaoWeb.tests;
 
 import automacaoWeb.core.Driver;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -19,7 +19,7 @@ public class TesteWeb {
         driver = driverWeb.getDriver();
         driver.get("https://www.chronosacademy.com.br");
     }
-
+// para criar metodos automaticamente clica botão direito>refactor>Extraxt Metodo após selecionar as linhas que vc quer transformar
     @Test
     public void acessaSite() {
         assertEquals("Porque Tempo É Conhecimento.", getTitulo());
