@@ -1,54 +1,39 @@
 package automacaoWeb.tests;
 
 import automacaoWeb.core.Driver;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.*;
-import org.openqa.selenium.By;
+import automacaoWeb.pages.CursoPage;
+import automacaoWeb.pages.PrincipalPage;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 public class TesteWeb {
     WebDriver driver;
     Driver driverWeb;
+    PrincipalPage principalPage;
+    CursoPage cursoPage;
 
     @Before
     public void inicializaTeste() {
         driverWeb = new Driver("chrome");
         driver = driverWeb.getDriver();
         driver.get("https://www.chronosacademy.com.br");
+        principalPage = new PrincipalPage(driver);
+        cursoPage = new CursoPage(driver);
     }
-// para criar metodos automaticamente clica botão direito>refactor>Extraxt Metodo após selecionar as linhas que vc quer transformar
+
     @Test
     public void acessaSite() {
-        assertEquals("Porque Tempo É Conhecimento.", getTitulo());
-    }
-    private String getTitulo() {
-        String xpathTitulo = "//section[2]//h4";
-        WebElement txtTitulo = driver.findElement(By.xpath(xpathTitulo));
-        String titulo = txtTitulo.getText();
-        return titulo;
+        assertEquals("Porque Tempo É Conhecimento.", principalPage.getTitulo());
     }
 
     @Test
     public void validaPaginaDeCursos() {
-        clickBotao();
-        assertEquals("Conheça todos os nossos cursos.", getTitulo2());
-
-    }
-    private String getTitulo2() {
-        String xpathTitulo = "//section[4]/div/div/div/div[1]/div//div";
-
-        WebElement txtTitulo = driver.findElement(By.xpath(xpathTitulo));
-        String titulo = txtTitulo.getText();
-        return titulo;
-    }
-    private void clickBotao() {
-        String buttonCursos = "//body/div/div/div/div/div/section[2]//a";
-
-        WebElement btnPage = driver.findElement(By.xpath(buttonCursos));
-        btnPage.click();
+        principalPage.clickBotao();
+        assertEquals("Conheça todos os nossos cursos.", cursoPage.getTitulo2());
     }
 
     @After
